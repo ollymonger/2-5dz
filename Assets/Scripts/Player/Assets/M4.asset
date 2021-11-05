@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22621c2881219ea4da55dc9051111fc1, type: 3}
   m_Name: M4
   m_EditorClassIdentifier: 
-  weaponName: 
-  weaponPrefab: {fileID: 2807139129659820221, guid: 8fdacb49179b6734ba50d40dd346477f, type: 3}
+  weaponName: M4A4
+  weaponPrefab: {fileID: 5207600471234974874, guid: 67cb5db8abbba5340adc5e1c712e72d5, type: 3}
   weaponIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   bulletPrefab: {fileID: 11400000, guid: b2d4902b7552fc84da683c0e6a968e88, type: 2}
   bulletSpeed: 5

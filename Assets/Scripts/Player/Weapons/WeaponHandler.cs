@@ -21,7 +21,7 @@ public class WeaponHandler : MonoBehaviour
 
     private void Awake()
     {
-        currentWeapon = weapons[0];
+        currentWeapon = weapons[currentWeaponIndex];
         Debug.Log(weapons.Length);
         currentWeapon.weaponPrefab.SetActive(true);
         bindings = new Bindings();
