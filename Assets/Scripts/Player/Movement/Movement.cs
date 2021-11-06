@@ -44,20 +44,20 @@ public class Movement : MonoBehaviour
         // Get the rotation quaternion in Z axis
         Quaternion rot = Quaternion.LookRotation(target, Vector3.forward);
 
-        if (look.x > 0.5 || look.x < -0.5 && look.y > 0.5 || look.y < -0.5)
+        if (look.x > 2 || look.x < -2 && look.y > 2 || look.y < -2)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(7, 180, rot.eulerAngles.z), Time.deltaTime * 10);
+            
+            //Move the camera with this gameobject
+
+            float offset = cam.transform.position.z;
+
+            cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, offset) + new Vector3(mousePos.x/5, mousePos.y /5, 0), 3f * Time.deltaTime);
         }
 
         if (m != new Vector2(0, 0))
         {
             transform.position = Vector2.Lerp(transform.position, transform.position += (Vector3)m, 5f * Time.deltaTime);
-
-            //Move the camera with this gameobject
-
-            float offset = cam.transform.position.z;
-
-            cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, offset), 3f * Time.deltaTime);
         }
     }
 }
