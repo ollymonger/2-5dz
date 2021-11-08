@@ -6,8 +6,8 @@ using CodeMonkey.Utils;
 
 public class PGrid
 {
-    private int w;
-    private int h;
+    public int w;
+    public int h;
     private float cellSize;
     private GameObject[] prefabObject;
 
@@ -20,6 +20,15 @@ public class PGrid
     public enum SpaceSlot
     {
         empty, Wall, Floor, Doorway
+    }
+
+    public bool IsGridComponentFloor(int x, int y)
+    {
+        if (gridArray[x, y] == (int)SpaceSlot.Floor)
+        {
+            return true;
+        }
+        return false;
     }
 
     public PGrid(int w, int h, float cellSize, GameObject[] prefabObject, GameObject parentObject)
@@ -136,6 +145,7 @@ public class PGrid
         Debug.DrawLine(GetWorldPosition(w, 0), GetWorldPosition(w, h), Color.white, 100f);
 
         GenerateRoomsWithinGrid(15);
+        SpawnRandomWeaponsWithinGrid(15);
     }
 
     public Vector3 GetWorldPosition(int x, int y)
@@ -143,6 +153,23 @@ public class PGrid
         return new Vector3(x, y) * cellSize;
     }
 
+    private void SpawnRandomWeaponsWithinGrid(int times)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            GameObject weaponObj = new GameObject("unassignedweapon");
+            weaponObj.AddComponent<Weapon>();
+            int randX = Random.Range(0, w);
+            int randY = Random.Range(0, h);
+            SpawnSpecific(GetWorldPosition(randX, randY), weaponObj);
+        }
+    }
+
+    private void SpawnSpecific(Vector3 pos, GameObject weaponObj)
+    {
+        weaponObj.GetComponent<Weapon>().Spawn(GetWorldPosition((int)pos.x, (int)pos.y));
+        weaponObj.tag = "Weapon";
+    }
     private void GenerateRoomsWithinGrid(int times)
     {
         // Loop through grid array, select random X /Y starting pos;

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class WeaponHandler : MonoBehaviour
 {
     private Bindings bindings;
-    public WeaponSO[] weapons;
+    public WeaponSO[] weapons; // Player inventory..
     public int currentWeaponIndex;
     public WeaponSO currentWeapon;
 
@@ -33,8 +33,6 @@ public class WeaponHandler : MonoBehaviour
         weaponInstantiated = Instantiate(currentWeapon.weaponPrefab, transform.position + Vector3.up * .5f, transform.rotation, player.transform);
     }
 
-    // Position the weaponPrefab infront of the player
-
     private void Update()
     {
         Vector2 look = bindings.Player.Look.ReadValue<Vector2>();
@@ -45,6 +43,27 @@ public class WeaponHandler : MonoBehaviour
         // Get the rotation quaternion in Z axis
         Quaternion rot = Quaternion.LookRotation(target, Vector3.forward);
         weaponInstantiated.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(7, 180, rot.eulerAngles.z), Time.deltaTime * 2.5f);
+    }
+
+    // On collision with a specific Weapon
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Weapon")
+        {
+            PickupWeapon(collision.transform.parent.GetComponent<Weapon>());
+        }
+    }
+
+
+    // Pickup weapon
+    public void PickupWeapon(Weapon weapon)
+    {
+        if (weapon.weaponSO.weaponName == currentWeapon.weaponName)
+        {
+            return;
+        }
+
+
     }
 
     public void SwitchWeapon(int newWeaponIndex)
