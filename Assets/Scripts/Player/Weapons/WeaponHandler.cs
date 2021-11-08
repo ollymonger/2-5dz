@@ -60,6 +60,8 @@ public class WeaponHandler : MonoBehaviour
     {
         if (weapon.weaponSO.weaponName == currentWeapon.weaponName)
         {
+            currentWeapon.weaponAmmo = weapon.weaponSO.weaponAmmo;
+            currentAmmo = currentWeapon.weaponAmmo;
             return;
         }
 

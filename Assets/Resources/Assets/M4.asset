@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22621c2881219ea4da55dc9051111fc1, type: 3}
+  m_Name: M4
+  m_EditorClassIdentifier: 
+  weaponName: M4A4
+  weaponPrefab: {fileID: 5207600471234974874, guid: 36206803c50b79a4692060c9ab398672, type: 3}
+  weaponIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  bulletPrefab: {fileID: 11400000, guid: ef3aa03d2832a4e41ac8e7b6084e6bbf, type: 2}
+  bulletSpeed: 5
+  weaponDamage: 5
+  weaponFireRate: 5
+  weaponRange: 15
+  weaponReloadTime: 5
+  weaponAmmo: 30
+  weaponAmmoMax: 90
