@@ -44,20 +44,27 @@ public class Movement : MonoBehaviour
         // Get the rotation quaternion in Z axis
         Quaternion rot = Quaternion.LookRotation(target, Vector3.forward);
 
+        float offset = cam.transform.position.z;
+
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+        float dividableOffset = (screenWidth + screenHeight) / 200;
+        Vector3 mousePosOffset = new Vector3(mousePos.x / dividableOffset, mousePos.y / dividableOffset, 0);
+        cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, offset), 3f * Time.deltaTime);
+
+
         if (look.x > 2 || look.x < -2 && look.y > 2 || look.y < -2)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(7, 180, rot.eulerAngles.z), Time.deltaTime * 10);
-            
-            //Move the camera with this gameobject
+            //Vector3 offsetPosition = new Vector3(mousePosOffset.x += transform.position.x, mousePosOffset.y += transform.position.y, offset);
+            //cam.transform.position = Vector3.Lerp(cam.transform.position, offsetPosition, 3f * Time.deltaTime);
 
-            float offset = cam.transform.position.z;
-
-            cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, offset) + new Vector3(mousePos.x/5, mousePos.y /5, 0), 3f * Time.deltaTime);
         }
 
         if (m != new Vector2(0, 0))
         {
             transform.position = Vector2.Lerp(transform.position, transform.position += (Vector3)m, 5f * Time.deltaTime);
+
         }
     }
 }
