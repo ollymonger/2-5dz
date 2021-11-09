@@ -23,6 +23,7 @@ public class WeaponSO : ScriptableObject
     public float weaponAmmo;
     public float weaponAmmoMax;
 
+
     public WeaponSO(WeaponSO playerWeapon)
     {
         playerWeapon.weaponName = weaponName;
