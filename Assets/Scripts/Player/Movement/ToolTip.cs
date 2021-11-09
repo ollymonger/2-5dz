@@ -9,6 +9,9 @@ public class ToolTip : MonoBehaviour
 {
     // Create a GameObject[] to store UI objects
     public Dictionary<GameObject, int> toolTipObjects = new Dictionary<GameObject, int>();
+
+    public GameObject closestFocus = null;
+
     public TMP_FontAsset fontAsset;
     Dictionary<GameObject, int> toolTipCanvases = new Dictionary<GameObject, int>();
 
@@ -17,10 +20,14 @@ public class ToolTip : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 3f, transform.forward);
         RaycastHit2D[] hitArray = Physics2D.CircleCastAll(transform.position, 3f, transform.forward, 3f, LayerMask.GetMask("Weapon"));
+        // Make closest focus the first object in the array that is not on the player or the player's weapon and return the gameobject or null
+        closestFocus = hitArray.Where(x => x.transform.gameObject != transform.gameObject && x.transform.gameObject != transform.GetChild(0).GetChild(0).gameObject).Select(x => x.transform.gameObject).FirstOrDefault();
+        Debug.Log(closestFocus);
         for (int i = 0; i < hitArray.Length; i++)
         {
             // Create a gameObject with the weaponSO frfom the parent Weapon
             GameObject weapon = hitArray[i].transform.parent.gameObject;
+
 
             // Check to see if weapon is already in toolTipObjects using Linq
             if (!toolTipObjects.Keys.Contains(weapon))

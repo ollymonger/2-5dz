@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,8 +28,10 @@ public class WeaponHandler : MonoBehaviour
         bindings = new Bindings();
         bindings.Enable();
         bindings.Player.Fire.Enable();
+        bindings.Player.Use.Enable();
         bindings.Player.Fire.started += ctx => currentWeapon.Fire(currentWeapon, Camera.main.ScreenToWorldPoint(bindings.Player.Look.ReadValue<Vector2>()) - weaponInstantiated.transform.position, weaponInstantiated.transform.position, transform.gameObject);
         player = GameObject.FindGameObjectWithTag("PlayerAsset");
+        bindings.Player.Use.started += ctx => PickupWeapon(GameObject.Find("Player").GetComponent<ToolTip>().closestFocus.transform.parent.GetComponent<Weapon>());
 
         weaponInstantiated = Instantiate(currentWeapon.weaponPrefab, transform.position + Vector3.up * .5f, transform.rotation, player.transform);
     }
@@ -58,14 +61,22 @@ public class WeaponHandler : MonoBehaviour
     // Pickup weapon
     public void PickupWeapon(Weapon weapon)
     {
-        if (weapon.weaponSO.weaponName == currentWeapon.weaponName)
+        if (weapon == null)
+        {
+            return;
+        }
+        if (weapons.Any(x => x.weaponName == weapon.weaponSO.weaponName))
         {
             currentWeapon.weaponAmmo = weapon.weaponSO.weaponAmmo;
             currentAmmo = currentWeapon.weaponAmmo;
+            Debug.Log("Replenished ammo");
             return;
         }
-
-
+        else
+        {
+            Debug.Log("Player does not have this yet");
+            return;
+        }
     }
 
     public void SwitchWeapon(int newWeaponIndex)
