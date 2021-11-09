@@ -110,7 +110,7 @@ public class ToolTip : MonoBehaviour
         text2.AddComponent<TextMeshProUGUI>();
         // Set the width and height of the text component
         text2.GetComponent<TextMeshProUGUI>().rectTransform.sizeDelta = new Vector2(2f, 5);
-        if (GameObject.Find("Player").GetComponent<WeaponHandler>().weapons.Any(x => x.name == weapon.GetComponent<Weapon>().weaponSO.weaponName))
+        if (GameObject.Find("Player").GetComponent<WeaponHandler>().weapons.FirstOrDefault(x => x.weaponName == weapon.GetComponent<Weapon>().weaponSO.weaponName))
         {
             text2.GetComponent<TextMeshProUGUI>().text = "Press E to purchase ammo";
             Debug.Log("player has weapon");
