@@ -22,6 +22,7 @@ public class WeaponSO : ScriptableObject
     public float weaponReloadTime;
     public float weaponAmmo;
     public float weaponAmmoMax;
+    public ParticleSystem muzzleFlash;
 
 
     public WeaponSO(WeaponSO playerWeapon)
@@ -58,7 +59,12 @@ public class WeaponSO : ScriptableObject
             // As bullet reaches range, destroy the gameobject
             Destroy(bullet, playerWeapon.weaponRange * Time.deltaTime);
             playerWeapon.weaponAmmo--;
-
+            // Play playerweapon bullet particle effect once
+            ParticleSystem muzzle = Instantiate(playerWeapon.muzzleFlash, position, new Quaternion(-90, 0, 0, 0));
+            muzzle.transform.position = position;
+            muzzle.transform.SetParent(player.transform);
+            muzzle.Play();
+            Destroy(muzzle.gameObject, 0.5f);
         }
     }
 }

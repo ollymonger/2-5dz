@@ -23,3 +23,4 @@ MonoBehaviour:
   weaponReloadTime: 5
   weaponAmmo: 15
   weaponAmmoMax: 50
+  muzzleFlash: {fileID: 2283996882566248719, guid: 3a6a9ded58ee699428e3376fbc68b7bc, type: 3}
