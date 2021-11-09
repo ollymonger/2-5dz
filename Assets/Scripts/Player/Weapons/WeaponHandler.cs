@@ -77,8 +77,9 @@ public class WeaponHandler : MonoBehaviour
 
     public void SwitchWeapon()
     {
-        // Switch weapon based on currentindex and length of Weapons[]
-        if (currentWeaponIndex < weapons.Length - 1)
+        // Switch weapon based on currentindex and length of Weapons[] & if not reloading
+
+        if (currentWeaponIndex < weapons.Length - 1 && !isReloading)
         {
             currentWeaponIndex++;
             WeaponSO temp = Instantiate(weapons[currentWeaponIndex]);
