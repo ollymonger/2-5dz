@@ -10,14 +10,11 @@ public class WeaponHandler : MonoBehaviour
     public WeaponSO[] weapons; // Player inventory..
     public int currentWeaponIndex;
     public WeaponSO currentWeapon;
-
     private GameObject weaponInstantiated;
     public float currentAmmo;
     public bool isReloading;
-
     private Vector2 look;
     private Vector3 direction;
-
     private GameObject player;
 
     private void Awake()
