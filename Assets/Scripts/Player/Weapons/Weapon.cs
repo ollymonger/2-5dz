@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using TMPro;
 
 
@@ -11,6 +13,8 @@ public class Weapon : MonoBehaviour
     public WeaponSO weaponSO;
     // Create a UI element to display the weapon name
     public TextMeshProUGUI weaponName;
+
+    UnityEvent inInventory;
 
     public void Awake()
     {
@@ -23,6 +27,42 @@ public class Weapon : MonoBehaviour
         prefab.transform.SetParent(transform);
         weaponName = new TextMeshProUGUI();
         weaponName.text = weaponSO.weaponName;
+
+        if (inInventory == null)
+        {
+            inInventory = new UnityEvent();
+        }
+
+        inInventory.AddListener(() =>
+        {
+            Debug.Log(weaponSO.weaponName + " in in inventory");
+            state = States.RUN_INVENTORY_CHECK;
+        });
+
+    }
+
+    enum States
+    {
+        IDLE_STATE,
+        RUN_INVENTORY_CHECK
+    }
+
+    States state = States.IDLE_STATE;
+
+    void FixedUpdate()
+    {
+        if (GameObject.Find("Player").GetComponent<WeaponHandler>().weapons.Where(x => x.weaponName == weaponSO.weaponName).Any() && inInventory != null && state != States.RUN_INVENTORY_CHECK)
+        {
+            inInventory.Invoke();
+            // Coroutine to swap the state back to idle after 30 seconds
+            StartCoroutine(SwapState());
+        }
+    }
+
+    IEnumerator SwapState()
+    {
+        yield return new WaitForSeconds(30);
+        state = States.IDLE_STATE;
     }
 
     public void Spawn(Vector3 pos)
