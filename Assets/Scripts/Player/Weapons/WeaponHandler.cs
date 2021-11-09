@@ -48,10 +48,7 @@ public class WeaponHandler : MonoBehaviour
     // On collision with a specific Weapon
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Weapon")
-        {
-            PickupWeapon(collision.transform.parent.GetComponent<Weapon>());
-        }
+
     }
 
 
