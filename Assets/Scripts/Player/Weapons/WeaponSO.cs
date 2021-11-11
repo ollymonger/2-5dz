@@ -72,6 +72,7 @@ public class WeaponSO : ScriptableObject
             muzzle.transform.position = position;
             muzzle.transform.SetParent(player.transform.GetChild(0).GetChild(0).transform);
             Destroy(muzzle.gameObject, 0.1f);
+            GameObject.FindObjectOfType<WeaponHandler>().changeUIValues(2);
         }
     }
 }

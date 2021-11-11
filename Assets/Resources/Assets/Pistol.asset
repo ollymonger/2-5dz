@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Pistol
   Rarity: 0
-  weaponPrefab: {fileID: 7043043648570793159, guid: 8b217a765b1136a469a9e974f068d39c, type: 3}
+  weaponPrefab: {fileID: 5207600471234974874, guid: 36206803c50b79a4692060c9ab398672, type: 3}
   weaponIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   bulletPrefab: {fileID: 11400000, guid: a5f6ee86379be204bb15659730c19ce8, type: 2}
   bulletSpeed: 3

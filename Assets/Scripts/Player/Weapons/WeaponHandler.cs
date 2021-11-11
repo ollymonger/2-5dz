@@ -64,6 +64,7 @@ public class WeaponHandler : MonoBehaviour
             currentWeapon.weaponAmmo = weapon.weaponSO.weaponAmmo;
             currentAmmo = currentWeapon.weaponAmmo;
             Debug.Log("Replenished ammo");
+            changeUIValues(2);
             return;
         }
         else
@@ -75,6 +76,11 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
+    public void changeUIValues(int caseSwitch)
+    {
+        GameObject.FindObjectOfType<PlayerUI>().UpdateValues(caseSwitch);
+    }
+
     public void SwitchWeapon()
     {
         // Switch weapon based on currentindex and length of Weapons[] & if not reloading
@@ -83,16 +89,15 @@ public class WeaponHandler : MonoBehaviour
         {
             currentWeaponIndex++;
             WeaponSO temp = Instantiate(weapons[currentWeaponIndex]);
-            temp.weaponAmmo = currentWeapon.weaponAmmo;
             currentWeapon = temp;
         }
         else
         {
             currentWeaponIndex = 0;
             WeaponSO temp = Instantiate(weapons[currentWeaponIndex]);
-            temp.weaponAmmo = currentWeapon.weaponAmmo;
             currentWeapon = temp;
         }
+        changeUIValues(1);
     }
 
     /*    public IEnumerator Reload()
