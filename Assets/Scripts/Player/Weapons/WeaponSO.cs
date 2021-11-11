@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
 // Generate a weapon object from a weapon SO
 
 [CreateAssetMenu(fileName = "New WeaponSO", menuName = "WeaponSO")]
@@ -10,6 +12,9 @@ public class WeaponSO : ScriptableObject
 {
     [Tooltip("The name of the weapon")]
     public string weaponName;
+
+    [Tooltip("The rarity of the weapon")]
+    public int Rarity;
     public GameObject weaponPrefab;
     public Sprite weaponIcon;
     // bullet
@@ -22,6 +27,7 @@ public class WeaponSO : ScriptableObject
     public float weaponReloadTime;
     public float weaponAmmo;
     public float weaponAmmoMax;
+    public GameObject muzzleFlash;
 
 
     public WeaponSO(WeaponSO playerWeapon)
@@ -58,7 +64,14 @@ public class WeaponSO : ScriptableObject
             // As bullet reaches range, destroy the gameobject
             Destroy(bullet, playerWeapon.weaponRange * Time.deltaTime);
             playerWeapon.weaponAmmo--;
-
+            // Play playerweapon bullet particle effect once
+            GameObject muzzle = Instantiate(playerWeapon.muzzleFlash, position, Quaternion.identity);
+            // Get the 2D Light component
+            UnityEngine.Rendering.Universal.Light2D light = muzzle.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
+            light.intensity = Random.Range(4, 9);
+            muzzle.transform.position = position;
+            muzzle.transform.SetParent(player.transform.GetChild(0).GetChild(0).transform);
+            Destroy(muzzle.gameObject, 0.1f);
         }
     }
 }

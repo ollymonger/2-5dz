@@ -20,7 +20,8 @@ public class Weapon : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         // Find all objects of WeaponSO from path using assetbundle
         WeaponSO[] weapons = Resources.LoadAll<WeaponSO>("Assets");
-        weaponSO = Instantiate(weapons[Random.Range(0, weapons.Length)]);
+        WeaponSO[] filtered = weapons.Where(w => w.Rarity < 2).ToArray();
+        weaponSO = Instantiate(filtered[Random.Range(0, filtered.Length)]);
         transform.name = weaponSO.weaponName;
     }
 
